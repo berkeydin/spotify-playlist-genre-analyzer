@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: theme("colors.spotify-black");
+  color: white;
+}
+
+.spotify-button {
+  background-color: theme("colors.spotify-green");
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px;
+  transition-property: all;
+  transition-duration: 300ms;
+  box-shadow: theme("boxShadow.spotify");
+}
+
+.spotify-button:hover {
+  background-color: theme("colors.spotify-secondary");
+  transform: scale(1.05);
+  box-shadow: theme("boxShadow.spotify-lg");
+}
+
+.spotify-card {
+  background-color: theme("colors.spotify-lightgray");
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: theme("boxShadow.spotify");
+  transition-property: all;
+  transition-duration: 300ms;
+}
+
+.spotify-card:hover {
+  box-shadow: theme("boxShadow.spotify-lg");
+}
+
+.spotify-input {
+  background-color: theme("colors.spotify-darkgray");
+  color: theme("colors.spotify-text");
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.spotify-input:focus {
+  outline: none;
+  ring: 2px solid theme("colors.spotify-green");
+}
+
+.spotify-gradient {
+  background: linear-gradient(
+    135deg,
+    theme("colors.spotify-green") 0%,
+    theme("colors.spotify-secondary") 50%,
+    theme("colors.spotify-black") 100%
+  );
+}
+
+.spotify-text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(
+    to right,
+    theme("colors.spotify-green"),
+    theme("colors.spotify-secondary")
+  );
+}
+
+.spotify-hover-effect {
+  transition-property: all;
+  transition-duration: 300ms;
+}
+
+.spotify-hover-effect:hover {
+  transform: scale(1.05);
+  box-shadow: theme("boxShadow.spotify-lg");
+}
+
+/* Webkit (Chrome, Safari, Edge) için scrollbar stilleri */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Firefox için scrollbar stilleri */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) rgba(0, 0, 0, 0.3);
+}
+
+/* Sayfa arka planı için smooth scroll davranışı */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Sayfa içeriği için özel scrollbar davranışı */
+.custom-scrollbar {
+  scrollbar-gutter: stable;
+  overflow-y: overlay;
+}
+
+@layer components {
+  /* Genel stil tanımlamaları */
+  body {
+    @apply bg-spotify-black text-spotify-text;
+  }
+
+  /* Buton stilleri */
+  .btn-spotify {
+    @apply bg-spotify-green hover:bg-spotify-secondary text-white font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105;
+  }
+
+  /* Card stilleri */
+  .card-spotify {
+    @apply bg-spotify-card hover:bg-spotify-hover p-4 rounded-lg transition-all duration-300;
+  }
+
+  /* Input stilleri */
+  .input-spotify {
+    @apply bg-spotify-darkgray text-spotify-text placeholder-spotify-text-subdued px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-spotify-green transition-all duration-300;
+  }
+}

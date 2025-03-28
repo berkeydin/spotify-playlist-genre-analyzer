@@ -260,22 +260,14 @@ export const followPlaylist = async (playlistId) => {
 };
 
 export const logout = () => {
+  // Token'ı localStorage'dan sil
+  localStorage.removeItem("spotify_access_token");
+
+  // Spotify API token'ını temizle
   spotifyApi.setAccessToken(null);
 
-  const spotifyLogoutUrl = "https://accounts.spotify.com/logout";
-
-  const popup = window.open(
-    spotifyLogoutUrl,
-    "Spotify Logout",
-    "width=700,height=500,top=40,left=40"
-  );
-
-  setTimeout(() => {
-    if (popup) {
-      popup.close();
-    }
-    window.location.replace("/");
-  }, 2000);
+  // Ana sayfaya yönlendir (bu Login component'ini gösterecek)
+  window.location.href = window.location.origin;
 };
 
 export const handleSpotifyError = (error) => {

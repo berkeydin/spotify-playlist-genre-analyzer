@@ -73,24 +73,28 @@ const PlaylistSelector = ({ onSelect }) => {
   return (
     <div
       ref={containerRef}
-      className="min-h-screen bg-gradient-to-b from-spotify-black to-spotify-darker overflow-y-auto"
-      style={{ maxHeight: "100vh" }}
+      className="min-h-screen bg-gradient-to-b from-spotify-black to-spotify-darker overflow-x-hidden"
     >
-      <div className="bg-spotify-black bg-opacity-90 backdrop-blur-lg sticky top-0 z-50">
+      <div className="bg-spotify-black bg-opacity-90 backdrop-blur-lg sticky top-0 z-50 w-full">
         <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
+          {/* Header - Responsive Layout */}
+          <div className="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:items-center sm:justify-between">
+            {/* Logo and Title */}
+            <div className="flex items-center space-x-3">
               <img
                 src="/spotify-white.png"
                 alt="Spotify"
-                className="h-8 object-contain"
+                className="h-8 w-auto object-contain"
               />
-              <h1 className="text-2xl font-bold text-spotify-text-primary">
+              <h1 className="text-xl sm:text-2xl font-bold text-spotify-text-primary truncate">
                 Playlist Analyzer
               </h1>
             </div>
-            <div className="flex items-center space-x-4">
-              <div className="w-96">
+
+            {/* Search and Logout - Responsive Container */}
+            <div className="flex flex-col space-y-3 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-4">
+              {/* Search Input */}
+              <div className="w-full sm:w-64 md:w-96">
                 <div className="relative">
                   <input
                     type="text"
@@ -114,9 +118,11 @@ const PlaylistSelector = ({ onSelect }) => {
                   </svg>
                 </div>
               </div>
+
+              {/* Logout Button */}
               <button
                 onClick={logout}
-                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-full text-sm transition-colors duration-300 flex items-center space-x-2"
+                className="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-full text-sm transition-colors duration-300 flex items-center justify-center space-x-2"
               >
                 <svg
                   className="w-4 h-4"
@@ -138,9 +144,9 @@ const PlaylistSelector = ({ onSelect }) => {
         </div>
       </div>
 
-      {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+      {/* Content - Responsive Grid */}
+      <div className="max-w-5xl mx-auto px-4 py-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
           {filteredPlaylists.map((playlist) => (
             <PlaylistCard
               key={playlist.id}
@@ -150,7 +156,7 @@ const PlaylistSelector = ({ onSelect }) => {
           ))}
         </div>
 
-        {/* Boş durum */}
+        {/* Empty State */}
         {filteredPlaylists.length === 0 && (
           <div className="text-center text-spotify-text-subdued mt-16">
             <svg
@@ -179,28 +185,28 @@ const PlaylistSelector = ({ onSelect }) => {
   );
 };
 
-// Playlist Card Component
+// Playlist Card Component - Making it more responsive
 const PlaylistCard = ({ playlist, onSelect }) => {
-  // Playlist resmi için varsayılan değer
   const playlistImage =
     playlist?.images?.[0]?.url || "/playlist-placeholder.png";
 
   return (
     <div
       onClick={() => onSelect(playlist)}
-      className="group bg-spotify-card hover:bg-spotify-hover p-4 rounded-lg cursor-pointer transition-all duration-300 transform hover:scale-105"
+      className="group bg-spotify-card hover:bg-spotify-hover p-2 rounded-lg cursor-pointer transition-all duration-300 transform hover:scale-102"
     >
-      <div className="relative aspect-square mb-4">
+      <div className="relative aspect-square mb-2">
         <img
           src={playlistImage}
           alt={playlist.name}
           className="w-full h-full object-cover rounded-md shadow-spotify"
+          loading="lazy"
         />
       </div>
-      <h3 className="font-bold text-spotify-text-primary truncate">
+      <h3 className="font-bold text-xs sm:text-sm text-spotify-text-primary truncate">
         {playlist.name}
       </h3>
-      <p className="text-sm text-spotify-text-subdued mt-1">
+      <p className="text-[10px] sm:text-xs text-spotify-text-subdued mt-0.5">
         {playlist.tracks.total} şarkı
       </p>
     </div>

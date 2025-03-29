@@ -201,19 +201,18 @@ const GenreAnalyzer = ({ playlist, onBack }) => {
       className={`min-h-screen bg-spotify-dark overflow-y-auto transition-opacity duration-300 ${
         isLeaving ? "opacity-0" : "opacity-100"
       }`}
-      style={{ maxHeight: "100vh" }}
     >
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-8">
         <div className="max-w-4xl mx-auto">
           {/* Geri Tuşu ve Playlist Başlığı */}
-          <div className="bg-gradient-to-b from-spotify-lightgray to-spotify-dark rounded-2xl p-6 mb-8 shadow-spotify-lg">
-            <div className="flex items-center space-x-6">
+          <div className="bg-gradient-to-b from-spotify-lightgray to-spotify-dark rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-8 shadow-spotify-lg">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 space-y-4 sm:space-y-0">
               <button
                 onClick={handleBack}
-                className="bg-spotify-dark hover:bg-spotify-hover text-white p-2 rounded-full transition-all duration-300 transform hover:scale-110 group"
+                className="bg-spotify-dark hover:bg-spotify-hover text-white p-2 rounded-full transition-all duration-300 transform hover:scale-110 group self-start"
               >
                 <svg
-                  className="w-8 h-8 transform transition-transform duration-300 group-hover:-translate-x-1"
+                  className="w-6 h-6 sm:w-8 sm:h-8 transform transition-transform duration-300 group-hover:-translate-x-1"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -226,27 +225,29 @@ const GenreAnalyzer = ({ playlist, onBack }) => {
                   />
                 </svg>
               </button>
-              <img
-                src={playlist.images[0]?.url || "/placeholder.png"}
-                alt={playlist.name}
-                className="w-32 h-32 rounded-xl shadow-spotify"
-              />
-              <div>
-                <h2 className="text-4xl font-bold text-white mb-2">
-                  {playlist.name}
-                </h2>
-                <p className="text-spotify-muted text-lg">
-                  {tracks.length} şarkı
-                </p>
+              <div className="flex items-center space-x-4">
+                <img
+                  src={playlist.images[0]?.url || "/placeholder.png"}
+                  alt={playlist.name}
+                  className="w-24 h-24 sm:w-32 sm:h-32 rounded-lg sm:rounded-xl shadow-spotify"
+                />
+                <div>
+                  <h2 className="text-2xl sm:text-4xl font-bold text-white mb-1 sm:mb-2 line-clamp-2">
+                    {playlist.name}
+                  </h2>
+                  <p className="text-spotify-muted text-base sm:text-lg">
+                    {tracks.length} şarkı
+                  </p>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Hata/Başarı Mesajı */}
           {error && (
-            <div className="mb-8">
+            <div className="mb-4 sm:mb-8">
               {typeof error === "string" ? (
-                <div className="bg-red-900/30 border border-red-500/50 text-red-100 px-6 py-4 rounded-lg">
+                <div className="bg-red-900/30 border border-red-500/50 text-red-100 px-4 sm:px-6 py-3 sm:py-4 rounded-lg text-sm sm:text-base">
                   {error}
                 </div>
               ) : (
@@ -259,10 +260,10 @@ const GenreAnalyzer = ({ playlist, onBack }) => {
           {!analyzing && genreGroups.length === 0 && (
             <button
               onClick={analyzeTracks}
-              className="w-full bg-spotify-green hover:bg-spotify-secondary text-white font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-spotify hover:shadow-spotify-lg flex items-center justify-center space-x-2"
+              className="w-full bg-spotify-green hover:bg-spotify-secondary text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-full text-base sm:text-lg transition-all duration-300 transform hover:scale-105 shadow-spotify hover:shadow-spotify-lg flex items-center justify-center space-x-2"
             >
               <svg
-                className="w-6 h-6"
+                className="w-5 h-5 sm:w-6 sm:h-6"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -271,7 +272,7 @@ const GenreAnalyzer = ({ playlist, onBack }) => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                  d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
                 />
               </svg>
               <span>Türlere Göre Analiz Et</span>
@@ -296,21 +297,21 @@ const GenreAnalyzer = ({ playlist, onBack }) => {
 
           {/* Tür Grupları ve Şarkı Listeleri */}
           {genreGroups.length > 0 && (
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {genreGroups.map(({ genre, tracks, length }) => (
                 <div
                   key={genre}
-                  className="bg-spotify-lightgray rounded-xl overflow-hidden shadow-spotify hover:shadow-spotify-lg transition-all duration-300"
+                  className="bg-spotify-lightgray rounded-lg sm:rounded-xl overflow-hidden shadow-spotify hover:shadow-spotify-lg transition-all duration-300"
                 >
                   <div
-                    className="flex items-center justify-between p-4 cursor-pointer hover:bg-spotify-hover transition-colors duration-200"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 cursor-pointer hover:bg-spotify-hover transition-colors duration-200 space-y-2 sm:space-y-0"
                     onClick={() =>
                       setSelectedGenre(selectedGenre === genre ? null : genre)
                     }
                   >
                     <div className="flex items-center space-x-3">
                       <svg
-                        className={`w-5 h-5 text-spotify-green transform transition-transform duration-300 ${
+                        className={`w-4 h-4 sm:w-5 sm:h-5 text-spotify-green transform transition-transform duration-300 ${
                           selectedGenre === genre ? "rotate-90" : ""
                         }`}
                         fill="none"
@@ -325,15 +326,15 @@ const GenreAnalyzer = ({ playlist, onBack }) => {
                         />
                       </svg>
                       <div>
-                        <h3 className="text-xl font-bold text-white">
+                        <h3 className="text-lg sm:text-xl font-bold text-white">
                           {genre}
                         </h3>
-                        <p className="text-spotify-muted text-sm">
+                        <p className="text-spotify-muted text-xs sm:text-sm">
                           {length} şarkı
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-2 self-end sm:self-auto">
                       {createdPlaylists[genre] ? (
                         <button
                           onClick={(e) => {
@@ -343,10 +344,10 @@ const GenreAnalyzer = ({ playlist, onBack }) => {
                               createdPlaylists[genre]
                             );
                           }}
-                          className="bg-spotify-dark hover:bg-spotify-hover text-white px-4 py-2 rounded-full text-sm transition-colors duration-300 flex items-center space-x-2"
+                          className="bg-spotify-dark hover:bg-spotify-hover text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm transition-colors duration-300 flex items-center space-x-1 sm:space-x-2"
                         >
                           <svg
-                            className="w-4 h-4"
+                            className="w-3 h-3 sm:w-4 sm:h-4"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -366,10 +367,10 @@ const GenreAnalyzer = ({ playlist, onBack }) => {
                             e.stopPropagation();
                             handleCreatePlaylist(genre, tracks);
                           }}
-                          className="bg-spotify-green hover:bg-spotify-secondary text-white px-4 py-2 rounded-full text-sm transition-colors duration-300 flex items-center space-x-2"
+                          className="bg-spotify-green hover:bg-spotify-secondary text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm transition-colors duration-300 flex items-center space-x-1 sm:space-x-2"
                         >
                           <svg
-                            className="w-4 h-4"
+                            className="w-3 h-3 sm:w-4 sm:h-4"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -395,22 +396,24 @@ const GenreAnalyzer = ({ playlist, onBack }) => {
                         : "max-h-0 opacity-0"
                     }`}
                   >
-                    <div className="p-4 space-y-2">
+                    <div className="p-3 sm:p-4 space-y-2">
                       {tracks.map((track) => (
                         <div
                           key={track.id}
-                          className="flex items-center space-x-4 p-2 hover:bg-spotify-hover rounded-lg transition-colors duration-200"
+                          className="flex items-center space-x-3 sm:space-x-4 p-2 hover:bg-spotify-hover rounded-lg transition-colors duration-200"
                         >
                           <img
                             src={
                               track.album.images[2]?.url || "/placeholder.png"
                             }
                             alt={track.name}
-                            className="w-10 h-10 rounded shadow-spotify"
+                            className="w-8 h-8 sm:w-10 sm:h-10 rounded shadow-spotify"
                           />
                           <div className="flex-1 min-w-0">
-                            <p className="text-white truncate">{track.name}</p>
-                            <p className="text-spotify-muted text-sm truncate">
+                            <p className="text-white text-sm sm:text-base truncate">
+                              {track.name}
+                            </p>
+                            <p className="text-spotify-muted text-xs sm:text-sm truncate">
                               {track.artists.map((a) => a.name).join(", ")}
                             </p>
                           </div>
